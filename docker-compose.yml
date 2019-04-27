@@ -1,0 +1,23 @@
+version: '3'
+services:
+  app:
+    image: 190ikp/django-dev
+    restart: always
+    # depends_on:
+    #   - db
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./src:/usr/local/src
+    command: python manage.py runserver 0.0.0.0:8000
+  # db:
+  #   image: mysql:8.0
+  #   restart: always
+  #   ports:
+  #     - '3306:3306'
+  #   environment:
+  #     TZ: 'Asia/Tokyo'
+  #     MYSQL_DATABASE: 'django'
+  #     MYSQL_USER: 'django'
+  #     MYSQL_PASSWORD: 'django'
+  #     MYSQL_ROOT_PASSWORD: 'example'
