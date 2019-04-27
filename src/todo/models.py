@@ -10,3 +10,6 @@ class Post(models.Model):
     content = models.TextField()
     deadline = models.DateTimeField(auto_now=False, auto_now_add=False)
     when_remind = models.IntegerField(choices=WHEN_REMIND)
+
+    def __str__(self):
+        return self.title

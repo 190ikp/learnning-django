@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # add my app
+    'todo.apps.TodoConfig',
 ]
 
 MIDDLEWARE = [
@@ -48,8 +50,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # add my app
-    'todo',
 ]
 
 ROOT_URLCONF = 'example.urls'
