@@ -6,37 +6,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>ToDoリスト</title>
 
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
         <link rel="stylesheet" href="https://unpkg.com/karma-css@latest/dist/karma.min.css">
         <link rel="stylesheet" href="{% static 'css/index.css' %}" >
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     </head>
     <body>
         <div class="container">
-            <h2>ToDoリスト</h2>
-            <form action="{% url 'add' %}" method="post">
-                {% csrf_token %}
-                <div class="text">
-                    {{ form.title }}
-                </div>
-                {% csrf_token %}
-                <div class="text">
-                    {{ form.content }}
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="button">
-                        ToDo追加
-                    </button>
-                </div>
-            </form>
+            <h1>ToDoリスト</h1>
+            {% block content %}
+            <h2>リスト</h2>
+            <p><a href="{% url 'add' %}">追加</a></p>
             {% if todo_list %}
             <table class="todo list table">
                 <tbody>
                     {% for post in todo_list %}
                     <tr>
                         <td>
-                            <li><a href="{% url 'detail' post.id %}">{{ post.title }}</a></li>
+                            <a href="{% url 'detail' post.id %}">{{ post.title }}</a>
                         </td>
                         <td>
-                            <li>{{ post.deadline }}</li>
+                            {{ post.deadline }}
                         </td>
                         <td>
                             <form action="{% url 'delete' post.id %}" method="post">
@@ -51,6 +43,7 @@
             {% else %}
             <p>登録済みのタスクはありません！</p>
             {% endif %}
+            {% endblock %}
         </div>
     </body>
 </html>

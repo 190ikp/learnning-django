@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import Post
@@ -10,13 +10,18 @@ def index(request):
 
 def detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    context = {'post': post}
-    return render(request, 'todo/detail.html', context)
+    return render(request, 'todo/detail.html', {'post': post})
 
 def add(request):
-    form = PostForm(request.POST)
-    form.save(commit=True)
-    return HttpResponseRedirect(reverse('index'))
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('index')
+    else:
+        form = PostForm()
+    return render(request, 'todo/add.html', {'form': form})
 
 def delete(request, id=None):
     post = get_object_or_404(Post, pk=id)

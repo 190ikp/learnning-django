@@ -1,43 +1,29 @@
-
-{% load static %}
-<!DOCTYPE html>
-<html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>ToDoリスト</title>
-
-        <link rel="stylesheet" href="https://unpkg.com/karma-css@latest/dist/karma.min.css">
-        <link rel="stylesheet" href="{% static 'css/index.css' %}" >
-    </head>
-    <body>
-        <div class="container">
-            <h2>詳細</h2>
-            {% if post %}
-            <table class="todo_detail">
-                <tbody>
-                    <tr>
-                        <td>タイトル</td>
-                        <td>{{ post.title }}</td>
-                    </tr>
-                    <tr>
-                        <td>内容</td>
-                        <td>{{ post.content }}</td>
-                    </tr>
-                    <tr>
-                        <td>期限</td>
-                        <td>{{ post.deadline }}</td>
-                    </tr>
-                    <tr>
-                        <td>通知</td>
-                        <td>{{ post.when_remind }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            {% else %}
-            <p>存在しないタスクです！</p>
-            {% endif %}
-            <p><a href="{% url 'index' %}">もどる</a></p>
-        </div>
-    </body>
-</html>
+{% extends 'todo/index.html' %}
+{% block content %}
+<h2>詳細</h2>
+{% if post %}
+<table class="todo_detail">
+    <tbody>
+        <tr>
+            <td>タイトル</td>
+            <td>{{ post.title }}</td>
+        </tr>
+        <tr>
+            <td>内容</td>
+            <td>{{ post.content }}</td>
+        </tr>
+        <tr>
+            <td>期限</td>
+            <td>{{ post.deadline }}</td>
+        </tr>
+        <tr>
+            <td>通知</td>
+            <td>{{ post.when_remind }}</td>
+        </tr>
+    </tbody>
+</table>
+{% else %}
+<p>存在しないタスクです！</p>
+{% endif %}
+<p><a href="{% url 'index' %}">もどる</a></p>
+{% endblock %}
