@@ -29,27 +29,28 @@
             </form>
             {% if todo_list %}
             <table class="todo list table">
-                    <tbody>
-                        {% for post in todo_list %}
-                            <tr>
-                                <td>
-                                    <div class="task"><li><a href="/todo/{{ post.id }}/"">{{ post.title }}</a></li></div>
-                                    <div>{{ post.deadline }}</div>
-                                </td>
-                                <td>
-                                    <form action="{% url 'delete' post.id %}" method="post">
-                                        {% csrf_token %}
-                                        <button class="button del">削除</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
+                <tbody>
+                    {% for post in todo_list %}
+                    <tr>
+                        <td>
+                            <li><a href="{% url 'detail' post.id %}">{{ post.title }}</a></li>
+                        </td>
+                        <td>
+                            <li>{{ post.deadline }}</li>
+                        </td>
+                        <td>
+                            <form action="{% url 'delete' post.id %}" method="post">
+                                {% csrf_token %}
+                                <button class="button del">削除</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
             {% else %}
-            <p>No ToDo list available.</p>
+            <p>登録済みのタスクはありません！</p>
             {% endif %}
         </div>
-        
     </body>
 </html>
