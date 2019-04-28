@@ -1,11 +1,11 @@
 {% extends 'todo/index.html' %}
 {% block content %}
-<h2>タスク追加</h2>
+<h2>タスク編集</h2>
 <div class="form-group">
-    <form action="{% url 'add' %}" method="POST">
+    <form action="{% url 'edit' %}" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="button">追加</button>
+        <button type="submit" class="button">完了</button>
     </form>
     <p><a href="{% url 'index' %}">もどる</a></p>
 </div>

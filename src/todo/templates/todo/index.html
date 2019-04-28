@@ -6,22 +6,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>ToDoリスト</title>
 
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
         <link rel="stylesheet" href="https://unpkg.com/karma-css@latest/dist/karma.min.css">
         <link rel="stylesheet" href="{% static 'css/index.css' %}" >
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     </head>
     <body>
         <div class="container">
-            <h1>ToDoリスト</h1>
+            <h1><a href="{% url 'index' %}">ToDoリスト</a></h1>
             {% block content %}
             <h2>リスト</h2>
             <p><a href="{% url 'add' %}">追加</a></p>
             {% if todo_list %}
             <table class="todo list table">
                 <tbody>
+                    <tr>
+                        <th>タイトル</th>
+                        <th>期限</th>
+                        <th>通知</th>
+                    </tr>
                     {% for post in todo_list %}
                     <tr>
                         <td>
@@ -31,10 +32,7 @@
                             {{ post.deadline }}
                         </td>
                         <td>
-                            <form action="{% url 'delete' post.id %}" method="post">
-                                {% csrf_token %}
-                                <button class="button del">削除</button>
-                            </form>
+                            {{ post.get_when_remind_display }}
                         </td>
                     </tr>
                     {% endfor %}

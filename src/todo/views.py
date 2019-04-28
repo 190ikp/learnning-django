@@ -26,4 +26,16 @@ def add(request):
 def delete(request, id=None):
     post = get_object_or_404(Post, pk=id)
     post.delete()
-    return HttpResponseRedirect(reverse('index'))
+    return redirect('index')
+
+def edit(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('detail', pk=post_id)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'todo/edit.html', {'form': form})

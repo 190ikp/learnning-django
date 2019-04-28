@@ -10,7 +10,7 @@
         </tr>
         <tr>
             <td>内容</td>
-            <td>{{ post.content }}</td>
+            <td>{{ post.content|linebreaksbr }}</td>
         </tr>
         <tr>
             <td>期限</td>
@@ -18,10 +18,15 @@
         </tr>
         <tr>
             <td>通知</td>
-            <td>{{ post.when_remind }}</td>
+            <td>{{ post.get_when_remind_display }}</td>
         </tr>
     </tbody>
 </table>
+<a href="{% url 'edit' post.id %}">編集</a>
+<form action="{% url 'delete' post.id %}" method="post">
+    {% csrf_token %}
+    <button class="button del">削除</button>
+</form>
 {% else %}
 <p>存在しないタスクです！</p>
 {% endif %}
