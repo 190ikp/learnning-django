@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=20)),
                 ('content', models.TextField()),
                 ('deadline', models.DateTimeField()),
-                ('when_remind', models.IntegerField(choices=[(1, '15min before'), (2, '30min before'), (3, '1h before')])),
+                ('when_remind', models.IntegerField(choices=[(1, '15分前'), (2, '30分前'), (3, '1時間前'), (4, '3時間前')])),
             ],
         ),
     ]
