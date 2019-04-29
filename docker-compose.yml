@@ -1,14 +1,14 @@
 version: '3'
 services:
   app:
-    image: 190ikp/django-dev
+    image: django:latest
     restart: always
     # depends_on:
     #   - db
     ports:
       - '8000:8000'
     volumes:
-      - ./src:/usr/local/src
+      - ./src:/usr/src/app
     command: python manage.py runserver 0.0.0.0:8000
   # db:
   #   image: mysql:8.0

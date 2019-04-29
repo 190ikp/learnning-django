@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # add my app
     'todo.apps.TodoConfig',
+    # use django-push-notifications
+    'push_notifications',
+    # use django-pwa
+    # 'pwa',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +143,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIR = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+# write down PWA settings here (in future update).
+# about django-pwa, visit here: https://pypi.org/project/django-pwa/
