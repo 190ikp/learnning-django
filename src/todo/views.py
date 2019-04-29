@@ -17,9 +17,10 @@ def signup(request):
 
 @login_required
 def index(request):
-    todo_list = Post.objects.order_by('deadline')
+    user = request.user
+    todo_list = Post.objects.filter(author=user).order_by('deadline')
     payload = {"head": "Welcome!", "body": "Hello World"}
-    send_user_notification(user=request.user, payload=payload, ttl=1000)
+    send_user_notification(user=user, payload=payload, ttl=1000)
     return render(request, 'todo/index.html', {'todo_list': todo_list})
 
 def detail(request, post_id):
@@ -31,6 +32,7 @@ def add(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
+            post.author = request.user
             post.save()
             return redirect('index')
     else:
@@ -48,6 +50,7 @@ def edit(request, post_id):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
+            post.author = request.user
             post.save()
             return redirect('detail', pk=post_id)
     else:

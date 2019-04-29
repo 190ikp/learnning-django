@@ -7,6 +7,7 @@ class Post(models.Model):
         (3, '1時間前'),
         (4, '3時間前'),
     )
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=20)
     content = models.TextField()
     deadline = models.DateTimeField()
