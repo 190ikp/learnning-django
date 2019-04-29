@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from webpush import send_user_notification
 from .models import Post
 from .forms import PostForm
 
@@ -17,6 +18,8 @@ def signup(request):
 @login_required
 def index(request):
     todo_list = Post.objects.order_by('deadline')
+    payload = {"head": "Welcome!", "body": "Hello World"}
+    send_user_notification(user=request.user, payload=payload, ttl=1000)
     return render(request, 'todo/index.html', {'todo_list': todo_list})
 
 def detail(request, post_id):
