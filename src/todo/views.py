@@ -1,7 +1,20 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .models import Post
 from .forms import PostForm
 
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = UserCreationForm()
+    return render(request,'todo/signup.html',{'form':form})
+
+@login_required
 def index(request):
     todo_list = Post.objects.order_by('deadline')
     return render(request, 'todo/index.html', {'todo_list': todo_list})

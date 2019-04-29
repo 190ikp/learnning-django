@@ -1,0 +1,23 @@
+{% load static %}
+{% load webpush_notifications %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>ToDoリスト</title>
+
+        <link rel="stylesheet" href="https://unpkg.com/karma-css@latest/dist/karma.min.css">
+        <link rel="stylesheet" href="{% static 'css/index.css' %}" >
+        {% webpush_header %}
+    </head>
+    <body>
+        <div class="container">
+            <h1><a href="{% url 'index' %}">ToDoリスト</a></h1>
+            {% block content %}
+            
+            {% endblock %}
+        </div>
+        {% webpush_button %}
+    </body>
+</html>
