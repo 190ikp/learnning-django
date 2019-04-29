@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    image: 190ikp/django-dev:latest
+    image: 190ikp/django:latest
     restart: always
     # depends_on:
     #   - db
