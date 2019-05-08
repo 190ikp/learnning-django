@@ -3,7 +3,6 @@ ToDo app for learning Django
 ```shell
 git clone https://github.com/190ikp/learnning-django.git
 cd learning-django
-docker-compose run app python manage.py migrate todo
 docker-compose up -d
 ```
 then access http://localhost:8000/ .
