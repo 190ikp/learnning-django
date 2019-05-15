@@ -8,8 +8,8 @@
         <title>ToDoリスト</title>
 
         <link rel="stylesheet" href="https://unpkg.com/karma-css@latest/dist/karma.min.css">
-        <link rel="stylesheet" href="{% static 'css/index.css' %}" >
-        {% webpush_header %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" rel="stylesheet">
+        <!-- {% webpush_header %} -->
     </head>
     <body>
         <div class="container">
@@ -17,7 +17,9 @@
             {% block content %}
             
             {% endblock %}
-            <p>{% webpush_button %}</p>
+            <!-- <p>{% webpush_button %}</p> -->
         </div>
+        <script src="{% static '/js/registerSw.js' %}"></script>
+        <script src="{% static '/js/site.js' %}"></script>
     </body>
 </html>

@@ -9,6 +9,7 @@ from .forms import PostForm
 # from django.views.decorators.csrf import csrf_exempt
 from webpush import send_user_notification
 # import json
+import datetime
 
 
 def signup(request):
@@ -27,9 +28,8 @@ def index(request):
     todo_list = Post.objects.filter(author=user).order_by('deadline')
     return render(request, 'index.html', {'todo_list': todo_list})
 
-@login_required
-def detail(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
+def detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
     return render(request, 'detail.html', {'post': post})
 
 def add(request):
@@ -44,22 +44,20 @@ def add(request):
         form = PostForm()
     return render(request, 'add.html', {'form': form})
 
-@login_required
-def delete(request, id=None):
-    post = get_object_or_404(Post, pk=id)
+def delete(request, pk=None):
+    post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('index')
 
-@login_required
-def edit(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
+def edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('detail', post_id)
+            return redirect('detail', pk=pk)
     else:
         form = PostForm(instance=post)
     context = {
@@ -71,16 +69,15 @@ def edit(request, post_id):
 # @login_required
 # def send_push(request):
 #     user = request.user
-#     remind_time = get_object_or_404(Post.when_remind)
-#     remind_text = get_object_or_404(Post.WHEN_REMIND, pk=post_id)
+#     todo = Post.objects.filter(author=user)
+#     if 
+#     remind_text = get_object_or_404(Post.WHEN_REMIND, pk=pk)
 #     message = '期限' + remind_text + 'です！'
 #     payload = {
-#         'head': '期限が近づいています！',
+#         'head': '期限通知',
 #         'body': message
 #     }
 #     send_user_notification(user=user, payload=payload, ttl=1000)
-
-#     return
 
 # def send_push(request):
 #     try:

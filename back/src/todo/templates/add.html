@@ -4,7 +4,25 @@
 <div class="form-group">
     <form action="{% url 'add' %}" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        <!-- {{ form.as_p }} -->
+        <table>
+            <tr>
+                <th>タイトル</th>
+                <td>{{ form.title }}</td>
+            </tr>
+            <tr>
+                <th>内容</th>
+                <td>{{ form.content }}</td>
+            </tr>
+            <tr>
+                <th>期限</th>
+                <td>{{ form.deadline }}</td>
+            </tr>
+            <tr>
+                <th>通知</th>
+                <td>{{ form.when_remind }}</td>
+            </tr>
+        </table>
         <button type="submit" class="button">追加</button>
     </form>
     <p><a href="{% url 'index' %}">もどる</a></p>

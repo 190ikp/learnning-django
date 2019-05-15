@@ -22,8 +22,8 @@
         </tr>
     </tbody>
 </table>
-<a href="{% url 'edit' post.id %}">編集</a>
-<form action="{% url 'delete' post.id %}" method="post">
+<a href="{% url 'edit' pk=post.pk %}">編集</a>
+<form action="{% url 'delete' pk=post.pk %}" method="post">
     {% csrf_token %}
     <button class="button del">削除</button>
 </form>
