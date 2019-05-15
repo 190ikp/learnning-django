@@ -4,12 +4,13 @@ from django.contrib.auth.decorators import login_required
 from .models import Post
 from .forms import PostForm
 # add following library for webpush
+from django.conf import settings
 # from django.http.response import JsonResponse, HttpResponse
 # from django.views.decorators.http import require_GET, require_POST
 # from django.views.decorators.csrf import csrf_exempt
-from webpush import send_user_notification
+# from webpush import send_user_notification
 # import json
-import datetime
+# import datetime
 
 
 def signup(request):
@@ -25,8 +26,14 @@ def signup(request):
 @login_required
 def index(request):
     user = request.user
+    webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
+    vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
     todo_list = Post.objects.filter(author=user).order_by('deadline')
-    return render(request, 'index.html', {'todo_list': todo_list})
+    content = {
+        'todo_list': todo_list,
+        'vapid_key': vapid_key,
+    }
+    return render(request, 'index.html', content)
 
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -66,11 +73,11 @@ def edit(request, pk):
     }
     return render(request, 'edit.html', context)
 
-# @login_required
+# @required_POST
 # def send_push(request):
 #     user = request.user
 #     todo = Post.objects.filter(author=user)
-#     if 
+
 #     remind_text = get_object_or_404(Post.WHEN_REMIND, pk=pk)
 #     message = '期限' + remind_text + 'です！'
 #     payload = {
@@ -78,26 +85,3 @@ def edit(request, pk):
 #         'body': message
 #     }
 #     send_user_notification(user=user, payload=payload, ttl=1000)
-
-# def send_push(request):
-#     try:
-#         body = request.body
-#         data = json.loads(body)
-
-#         if 'head' not in data or 'body' not in data:
-#             return JsonResponse(status=400, data={"message": "Invalid data format"})
-
-#         user = request.user
-#         payload = {'head': data['head'], 'body': data['body']}
-#         send_user_notification(user=user, payload=payload, ttl=1000)
-
-#         return JsonResponse(status=200, data={"message": "Web push successful"})
-#     except TypeError:
-#         return JsonResponse(status=500, data={"message": "An error occurred"})
-
-# @require_GET
-# def home(request):
-#     webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
-#     vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
-#     user = request.user
-#     return render(request, )
