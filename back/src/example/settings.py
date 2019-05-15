@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # add my app
     'todo.apps.TodoConfig',
+    'bootstrap_datepicker_plus',
     # use django-webpush
     'webpush',
     # use django-pwa

@@ -4,26 +4,24 @@
 <p><a href="{% url 'add' %}">追加</a></p>
 {% if todo_list %}
 <table class="todo list table">
-    <tbody>
-        <tr>
-            <th>タイトル</th>
-            <th>期限</th>
-            <th>通知</th>
-        </tr>
-        {% for post in todo_list %}
-        <tr>
-            <td>
-                <a href="{% url 'detail' pk=post.pk %}">{{ post.title }}</a>
-            </td>
-            <td>
-                {{ post.deadline }}
-            </td>
-            <td>
-                {{ post.get_when_remind_display }}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
+    <tr>
+        <th>タイトル</th>
+        <th>期限</th>
+        <th>通知</th>
+    </tr>
+    {% for post in todo_list %}
+    <tr>
+        <td>
+            <a href="{% url 'detail' pk=post.pk %}">{{ post.title }}</a>
+        </td>
+        <td>
+            {{ post.deadline }}
+        </td>
+        <td>
+            {{ post.get_when_remind_display }}
+        </td>
+    </tr>
+    {% endfor %}
 </table>
 {% else %}
 <p>登録済みのタスクはありません！</p>
